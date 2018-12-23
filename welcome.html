@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>晶明机器人</title>
+    <style>
+        body {
+            font-family: 'Microsoft Yahei';
+            width: 500px;
+            min-height: 100px;
+        }
+
+        a {
+            margin-right: 10px;
+        }
+
+        .welcome {
+            background-color: #E7EAEB;
+        }
+
+        .row {
+            position: relative;
+            height: 50px;
+            z-index: 1;
+            clear: both;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .row--intro {
+            padding-top: 20px;
+            font-size: 16px;
+            line-height: 28px;
+            font-weight: 300;
+            color: #fff;
+            opacity: 0.4;
+        }
+
+        .row--intro span {
+            font-size: 11px;
+        }
+
+        .skew-title {
+            font-size: 25px;
+        }
+
+        .skew-title span {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 50px;
+            margin: auto;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            font-family: 'roboto condensed';
+            font-weight: 700;
+            font-size: 35.714285714285715px;
+            line-height: 50px;
+            -webkit-transform: skewY(-15deg);
+            transform: skewY(-15deg);
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .skew-title span:after,
+        .skew-title span:before {
+            display: block;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 50px;
+            position: absolute;
+            background: #185a81;
+            content: ' ';
+            z-index: -1;
+            transition: all 0.2s;
+        }
+
+        .skew-title span:before {
+            background: rgba(0, 0, 0, 0.1);
+            -webkit-transform: skewY(15deg);
+            transform: skewY(15deg);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+
+        .skew-title span:nth-child(even) {
+            background-color: #144c6e;
+            -webkit-transform: skewY(15deg);
+            transform: skewY(15deg);
+            -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+            color: #d9d9d9;
+        }
+
+        .skew-title span:nth-child(even):after {
+            background-color: #144c6e;
+        }
+
+        .skew-title span:nth-child(even):before {
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: skewY(-15deg);
+            transform: skewY(-15deg);
+        }
+
+        .skew-title span.flat {
+            -webkit-transform: skewY(0);
+            transform: skewY(0);
+            color: #fff;
+        }
+
+        .skew-title span.flat:before {
+            -webkit-transform: skewY(0);
+            transform: skewY(0);
+        }
+
+        .skew-title span.flat:nth-child(even):after {
+            background-color: #185a81;
+        }
+
+        .skew-title span.alt:after {
+            background-color: #b94a2c;
+        }
+
+        .skew-title span.alt:nth-child(even):after {
+            background-color: #9d3f25;
+        }
+
+        .skew-title span.alt.flat:nth-child(even):after {
+            background-color: #b94a2c;
+        }
+
+        .jm_text {
+            border: 3px solid #4c6e3b;
+            border-radius: 25px;
+        }
+
+        .onoffswitch {
+            position: relative;
+            width: 90px;
+            left: 400px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .onoffswitch-checkbox {
+            display: none;
+        }
+
+        .onoffswitch-label {
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #999999;
+            border-radius: 20px;
+        }
+
+        .onoffswitch-inner {
+            display: block;
+            width: 200%;
+            margin-left: -100%;
+            transition: margin 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-inner:before, .onoffswitch-inner:after {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 30px;
+            padding: 0;
+            line-height: 30px;
+            font-size: 14px;
+            color: white;
+            font-family: Trebuchet, Arial, sans-serif;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .onoffswitch-inner:before {
+            content: "未运行";
+            padding-left: 10px;
+            background-color: rgba(165, 103, 157, 0.26);
+            color: #FFFFFF;
+        }
+
+        .onoffswitch-inner:after {
+            content: "正在运行";
+            padding-right: 10px;
+            background-color: #3d43ee;
+            color: #eee9f0;
+            text-align: right;
+        }
+
+        .onoffswitch-switch {
+            display: block;
+            width: 18px;
+            margin: 6px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 56px;
+            border: 2px solid #999999;
+            border-radius: 20px;
+            transition: all 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+            margin-left: 0;
+        }
+
+        .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+            right: 0px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="welcome">
+    <h1 class="row skew-title">
+        <span>晶</span><span>明</span><span>机</span><span>器</span><span>人</span>
+        <span class="alt"> V1.0</span><span class="alt">(内</span><span class="alt">测</span><span class="alt last">版)</span>
+    </h1>
+    <div class="jm_text">
+        <p>
+            &nbsp;&nbsp;晶明机器人是一个能够实现微信公众号实现自动识别用户发送图片的谷歌插件
+        </p>
+        <p>
+            &nbsp;&nbsp; 帮助中小型公司可定制化开发工具
+        </p>
+        <p>
+            &nbsp;&nbsp; 作者:邓纯粹
+        </p>
+        <p>
+            &nbsp;&nbsp; 微信：Orz_8888888
+        </p>
+        <p class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner" id="jm_switch_inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+            <a id="start" href="#">开始</a>
+
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/jm.js"></script>
+</body>
+
+</html>
